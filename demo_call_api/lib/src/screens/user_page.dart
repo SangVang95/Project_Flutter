@@ -12,7 +12,6 @@ class UserPage extends StatefulWidget {
 }
 
 class UserPageState extends State<UserPage> {
-//  Future<[User]> _future;
 
   Future<List<User>> _future;
 

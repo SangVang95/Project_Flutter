@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterbloc/bloc/counter_bloc.dart';
-import 'package:flutterbloc/bloc/counter_event.dart';
-import 'package:flutterbloc/bloc/counter_state.dart';
+import 'package:flutterbloc/counter/bloc/counter_bloc.dart';
+import 'package:flutterbloc/counter/bloc/counter_event.dart';
+import 'package:flutterbloc/counter/bloc/counter_state.dart';
 
 class HomePage extends StatefulWidget {
   @override
