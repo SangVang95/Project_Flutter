@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-
 import 'package:flutterbloc/simple_list/model/user.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,11 +10,13 @@ class Repository {
 
     if (response.statusCode == 200) {
       return _list = (json.decode (response.body) as List).map ((user) =>
-          User.fromJson (user)).toList ();
+          User.fromJson (user)).toList();
     } else {
       throw Exception ('Error');
     }
-
   }
 }
+
+
+
 

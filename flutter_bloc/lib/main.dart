@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutterbloc/infinite_list/infinite_main.dart';
+
+import 'package:flutterbloc/repository/networking_provider.dart';
+import 'package:flutterbloc/repository/repositories.dart';
 import 'package:flutterbloc/simple_list/list_user_main.dart';
+import 'package:flutterbloc/weather/bloc/theme/theme_bloc.dart';
+import 'package:flutterbloc/weather/screens/weather_main.dart';
+import 'package:http/http.dart' as http;
 
-import 'counter/Screen/home_page.dart';
-import 'counter/bloc/counter_bloc.dart';
+
+void main(){
+
+  final Repositories repositories = Repositories(weatherApiClient: WeatherApiClient(httpClient: http.Client()));
+  runApp(
+      BlocProvider<ThemeBloc>(
+        create: (context) => ThemeBloc(),
+        child: WeatherPage(repositories: repositories,)),
+      );
 
 
-void main() => runApp(ListUserHome());
+}
 //
 //
 //
