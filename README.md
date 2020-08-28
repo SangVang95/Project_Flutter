@@ -3,3 +3,4 @@
 - demo_stream: user stream
 - demo_provider: user provider
 - demo_sqlite: sqlite use provider
+- demo_isolate: user isolate, compute
