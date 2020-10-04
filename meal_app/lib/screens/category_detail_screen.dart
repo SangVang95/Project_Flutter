@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/dummy_data.dart';
@@ -5,6 +7,11 @@ import 'package:meal_app/model/meal.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
   static const routeName = "CategoryDetailScreeen";
+
+  final Function toggleFavorites;
+  final Function isFavorites;
+
+  CategoryDetailScreen(this.toggleFavorites, this.isFavorites);
 
   Widget buidSectionTitle(BuildContext context, String text) {
     return Container(
@@ -64,18 +71,27 @@ class CategoryDetailScreen extends StatelessWidget {
                     }),
               ),
               buidSectionTitle(context, "Steps"),
-              buildContainer(
-                ListView.builder(
-                    itemCount: selectedMeal.steps.length,
-                    itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(selectedMeal.steps[index]),
-                      leading: CircleAvatar(child: Text("${index + 1}"),),
-                    );
-                })
-              )
+              buildContainer(ListView.builder(
+                  itemCount: selectedMeal.steps.length,
+                  itemBuilder: (context, index) => Column(
+                        children: [
+                          ListTile(
+                            title: Text(selectedMeal.steps[index]),
+                            leading: CircleAvatar(
+                              child: Text("${index + 1}"),
+                            ),
+                          ),
+                          Divider()
+                        ],
+                      )
+                  // return
+                  )),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(isFavorites(id) ? Icons.star : Icons.star_border),
+          onPressed: () => toggleFavorites(id),
         ));
   }
 }
