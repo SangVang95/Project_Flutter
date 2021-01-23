@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class CartItem {
@@ -18,12 +20,21 @@ class CartProvider with ChangeNotifier {
     return {..._items};
   }
 
-  // int get itemCount() {
-  //   return _items.length;
-  // }
-
   int get itemCount {
     return _items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.quantity;
+    });
+    return total;
+  }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
+    notifyListeners();
   }
 
   void addItems(String id, double price, String title) {
@@ -44,6 +55,11 @@ class CartProvider with ChangeNotifier {
               quantity: 1,
               price: null));
     }
+    notifyListeners();
+  }
+
+  void clear() {
+    _items = {};
     notifyListeners();
   }
 }

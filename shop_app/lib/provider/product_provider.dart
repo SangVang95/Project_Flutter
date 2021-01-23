@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:shop_app/model/product.dart';
 
@@ -57,6 +59,11 @@ class ProductProvider with ChangeNotifier {
 
   void addProduct(Product value) {
     _items.add(value);
+    notifyListeners();
+  }
+
+  void test() {
+    print("123");
     notifyListeners();
   }
 
