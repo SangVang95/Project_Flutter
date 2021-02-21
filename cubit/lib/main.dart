@@ -1,24 +1,26 @@
-import 'package:cubit/normal.dart';
+import 'package:cubit/cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(Normal());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: App(
-        myChild: MyCenterWidget(),
+      home: BlocProvider(
+        create: (_) => CounterCubit(),
+        child: App(),
       ),
     );
   }
 }
 
 class App extends StatefulWidget {
-  final Widget myChild;
-  App({this.myChild});
+  // final Widget myChild;
+  // App({this.myChild});
   @override
   State<StatefulWidget> createState() {
     return AppState();
@@ -26,25 +28,31 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-  int _counter = 0;
+  // int _counter = 0;
   @override
   Widget build(BuildContext context) {
+    print("Rebuld");
     return Scaffold(
       appBar: AppBar(
         title: Text('CUBIT'),
       ),
       body: Scaffold(
-        body: MyinheritWidget(
-          child: widget.myChild,
-          data: _counter,
+        // body: MyinheritWidget(
+        //   child: widget.myChild,
+        //   data: _counter,
+        // ),
+        body: BlocBuilder<CounterCubit, CounterState>(
+          builder: (_, state) {
+            return Center(
+              child: Text('${state.counter}'),
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          setState(() {
-            _counter++;
-          });
+          context.read<CounterCubit>().increment();
         },
       ),
     );
