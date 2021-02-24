@@ -11,22 +11,33 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Chat Screen')),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (ctx, index) => Container(
-          padding: EdgeInsets.all(8),
-          child: Text('This work'),
-        ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('chats/zbDmUl1SonaunNVmBwV1/messages')
+            .snapshots(),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final List<DocumentSnapshot> docs = snapshot.data.docs;
+
+          return ListView.builder(
+              itemCount: docs.length,
+              itemBuilder: (ctx, index) => Container(
+                    padding: EdgeInsets.all(8),
+                    child: Text(docs[index]["text"]),
+                  ));
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
           FirebaseFirestore.instance
               .collection('chats/zbDmUl1SonaunNVmBwV1/messages')
-              .snapshots()
-              .listen((data) {
-            print(data.toString());
-          });
+              .add({'text': 'Hi freind'});
         },
       ),
     );
