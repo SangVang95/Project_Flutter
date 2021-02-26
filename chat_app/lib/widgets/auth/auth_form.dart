@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(String, String, String, bool) submitFirebase;
+  final bool isLoading;
 
-  AuthForm(this.submitFirebase);
+  AuthForm(this.submitFirebase, this.isLoading);
 
   @override
   _AuthFormState createState() => _AuthFormState();
@@ -43,7 +44,7 @@ class _AuthFormState extends State<AuthForm> {
                     TextFormField(
                       key: ValueKey('email'),
                       validator: (value) {
-                        if (value.isEmpty || !value.trim().contains('@')) {
+                        if (value.isEmpty || !value.contains('@')) {
                           return 'Email is invalid';
                         }
                         return null;
@@ -58,7 +59,7 @@ class _AuthFormState extends State<AuthForm> {
                       TextFormField(
                         key: ValueKey('username'),
                         validator: (value) {
-                          if (value.trim().length < 4 || value.isEmpty) {
+                          if (value.length < 4 || value.isEmpty) {
                             return 'Username is invalid';
                           }
                           return null;
@@ -71,7 +72,7 @@ class _AuthFormState extends State<AuthForm> {
                     TextFormField(
                       key: ValueKey('password'),
                       validator: (value) {
-                        if (value.isEmpty || value.trim().length < 6) {
+                        if (value.isEmpty || value.length < 6) {
                           return 'Password is invalid';
                         }
                         return null;
@@ -85,23 +86,26 @@ class _AuthFormState extends State<AuthForm> {
                     SizedBox(
                       height: 12,
                     ),
-                    ElevatedButton(
-                        child: Text(_isLogin ? 'Login' : 'Signup'),
-                        onPressed: () => _trySubmit()),
-                    TextButton(
-                        child: Text(
-                          _isLogin
-                              ? 'Create new account'
-                              : 'I already have an account',
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.lightBlue),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _isLogin = !_isLogin;
-                          });
-                        })
+                    if (widget.isLoading) CircularProgressIndicator(),
+                    if (!widget.isLoading)
+                      ElevatedButton(
+                          child: Text(_isLogin ? 'Login' : 'Signup'),
+                          onPressed: () => _trySubmit()),
+                    if (!widget.isLoading)
+                      TextButton(
+                          child: Text(
+                            _isLogin
+                                ? 'Create new account'
+                                : 'I already have an account',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.lightBlue),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isLogin = !_isLogin;
+                            });
+                          })
                   ],
                 )),
           ),
