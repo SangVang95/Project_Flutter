@@ -35,7 +35,7 @@ class Messages extends StatelessWidget {
         return ListView.builder(
             itemCount: _docs.length,
             itemBuilder: (ctx, index) => MessageBuble(
-                  userId: _user.uid,
+                  username: _docs[index]['username'],
                   message: _docs[index]['text'],
                   isMe: _docs[index]['userId'] == _user.uid,
                   key: ValueKey(_docs[index].id),
