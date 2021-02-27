@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/chat_screen.dart';
 import 'package:chat_app/widgets/auth/auth_form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
   final _scafoldKey = GlobalKey<ScaffoldState>();
   var _isLoading = false;
+
   void _submitAuthForm(
       String email, String username, String password, bool isLogin) async {
     UserCredential _userCredential;
@@ -22,8 +24,16 @@ class _AuthScreenState extends State<AuthScreen> {
       });
 
       if (isLogin) {
-        _userCredential = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
+        _userCredential = await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((value) {
+          if (value != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChatScreen()),
+            );
+          }
+        });
       } else {
         _userCredential = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
