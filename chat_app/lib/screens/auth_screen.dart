@@ -27,12 +27,10 @@ class _AuthScreenState extends State<AuthScreen> {
         _userCredential = await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((value) {
-          if (value != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChatScreen()),
-            );
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatScreen()),
+          );
         });
       } else {
         _userCredential = await _auth.createUserWithEmailAndPassword(
