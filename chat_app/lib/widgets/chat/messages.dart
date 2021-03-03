@@ -4,21 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Messages extends StatelessWidget {
-  Future<User> getUser() async {
-    final user = await FirebaseAuth.instance.currentUser;
-    return Future<User>.value(user);
-  }
-
   @override
   Widget build(BuildContext context) {
-    // return FutureBuilder(
-    //     future: getUser(),
-    //     builder: (ctx, snapshotFuture) {
-    //       if (snapshotFuture.connectionState == ConnectionState.waiting) {
-    //         return Center(
-    //           child: CircularProgressIndicator(),
-    //         );
-    //       }
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('chat')

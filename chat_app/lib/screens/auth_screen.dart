@@ -1,9 +1,10 @@
-import 'package:chat_app/screens/chat_screen.dart';
+import 'dart:io';
+
 import 'package:chat_app/widgets/auth/auth_form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -15,8 +16,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final _scafoldKey = GlobalKey<ScaffoldState>();
   var _isLoading = false;
 
-  void _submitAuthForm(
-      String email, String username, String password, bool isLogin) async {
+  void _submitAuthForm(String email, String username, String password,
+      bool isLogin, File userImage) async {
     UserCredential _userCredential;
     try {
       setState(() {
@@ -24,31 +25,31 @@ class _AuthScreenState extends State<AuthScreen> {
       });
 
       if (isLogin) {
-        _userCredential = await _auth
-            .signInWithEmailAndPassword(email: email, password: password)
-            .then((value) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
-          );
-        });
+        _userCredential = await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
       } else {
         _userCredential = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_image')
+            .child(_userCredential.user.uid + '.jpg');
+
+        await ref.putFile(userImage);
+        final urlImage = await ref.getDownloadURL();
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(_userCredential.user.uid)
             .set({
           'username': username,
           'email': email,
-          'password': password
-        }).then((value) {
-          setState(() {
-            _isLoading = false;
-          });
+          'password': password,
+          'urlImage': urlImage
         });
       }
-    } on PlatformException catch (error) {
+    } on FirebaseAuthException catch (error) {
       var message = 'An error occured, please check your credential';
       if (error.message != '') {
         message = error.message;

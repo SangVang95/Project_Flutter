@@ -4,7 +4,7 @@ import 'package:chat_app/widgets/picker_image/user_image_picker.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
-  final void Function(String, String, String, bool) submitFirebase;
+  final void Function(String, String, String, bool, File) submitFirebase;
   final bool isLoading;
 
   AuthForm(this.submitFirebase, this.isLoading);
@@ -17,7 +17,6 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
 
   var _isLogin = false;
-
   String _email;
   String _password;
   String _username;
@@ -28,14 +27,15 @@ class _AuthFormState extends State<AuthForm> {
     FocusScope.of(context).unfocus();
 
     if (_userImage == null && !_isLogin) {
-      Scaffold.of(context)
-          .showSnackBar(SnackBar(content: Text('Please pick a image')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Please add image...'),
+        backgroundColor: Theme.of(context).errorColor,
+      ));
+      return;
     }
-
     if (isValid) {
       _formKey.currentState.save();
-      widget.submitFirebase(
-          _email.trim(), _username.trim(), _password.trim(), _isLogin);
+      widget.submitFirebase(_email, _username, _password, _isLogin, _userImage);
     }
   }
 
@@ -71,7 +71,7 @@ class _AuthFormState extends State<AuthForm> {
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(labelText: 'Email'),
                       onSaved: (value) {
-                        _email = value;
+                        _email = value.trim();
                       },
                     ),
                     if (!_isLogin)
@@ -85,7 +85,7 @@ class _AuthFormState extends State<AuthForm> {
                         },
                         decoration: InputDecoration(labelText: 'Username'),
                         onSaved: (value) {
-                          _username = value;
+                          _username = value.trim();
                         },
                       ),
                     TextFormField(
@@ -99,7 +99,7 @@ class _AuthFormState extends State<AuthForm> {
                       obscureText: true,
                       decoration: InputDecoration(labelText: 'Password'),
                       onSaved: (value) {
-                        _password = value;
+                        _password = value.trim();
                       },
                     ),
                     SizedBox(
