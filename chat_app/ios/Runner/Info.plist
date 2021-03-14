@@ -47,5 +47,9 @@
 	<string>We need access to your image</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We need access to your image</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need access to your location</string>
 </dict>
 </plist>

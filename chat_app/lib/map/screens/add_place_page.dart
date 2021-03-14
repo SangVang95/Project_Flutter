@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:chat_app/map/providers/great_places.dart';
 import 'package:chat_app/map/widgets/image_input.dart';
+import 'package:chat_app/map/widgets/location_input.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,11 @@ class _AddPlacePageState extends State<AddPlacePage> {
                     ),
                     ImageInput(
                       onSelectimage: _selectImage,
-                    )
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LocationInput()
                   ],
                 ),
               ),

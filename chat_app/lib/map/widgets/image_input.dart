@@ -23,15 +23,16 @@ class _ImageInputState extends State<ImageInput> {
     if (_imageFile == null) {
       return;
     }
-    setState(() {
-      _storedImage = File(_imageFile.path);
-    });
-
+    // save path image
     final appDirectory = await pathProvider.getApplicationDocumentsDirectory();
     final fileName = path.basename(_imageFile.path);
-    final saveImage =
+    final newImage =
         await File(_imageFile.path).copy('${appDirectory.path}/$fileName');
-    widget.onSelectimage(saveImage);
+    widget.onSelectimage(newImage);
+
+    setState(() {
+      _storedImage = newImage;
+    });
   }
 
   @override

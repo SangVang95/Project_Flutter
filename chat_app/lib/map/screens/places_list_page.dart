@@ -11,7 +11,7 @@ class PlacesList extends StatefulWidget {
 class _PlacesListState extends State<PlacesList> {
   @override
   void initState() {
-    context.read<GreatPlaces>().fetchPlaces();
+    // context.read<GreatPlaces>().fetchPlaces();
     super.initState();
   }
 

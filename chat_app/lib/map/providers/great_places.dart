@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:chat_app/map/database/db_helper.dart';
 import 'package:chat_app/map/models/place.dart';
 import 'package:flutter/material.dart';
