@@ -20,6 +20,8 @@ class UserRepository {
 
     List responseJson = json.decode(data);
 
+    // print(responseJson.map((e) => print(User.fromJson(e))));
+
     _users = responseJson.map((e) => User.fromJson(e)).toList();
 
     return _users;
