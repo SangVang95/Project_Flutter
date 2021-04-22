@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
   json_serializable: ^4.1.0
+  jaguar_serializer:
 
 
 dev_dependencies:

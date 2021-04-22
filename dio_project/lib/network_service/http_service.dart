@@ -9,7 +9,7 @@ class HttpService {
 
   HttpService() {
     _dio = Dio(BaseOptions(
-        responseType: ResponseType.plain,
+        responseType: ResponseType.json,
         connectTimeout: 30000,
         receiveTimeout: 30000,
         baseUrl: baseUrl,

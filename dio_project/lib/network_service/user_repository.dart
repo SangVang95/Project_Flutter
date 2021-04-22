@@ -16,13 +16,21 @@ class UserRepository {
         .getRequest(ApiEndpoint.userEnpoint(UserEndpoint.listUser));
 
     print("------------------");
-    final String data = response.data;
+    // final String data = response.data;
 
-    List responseJson = json.decode(data);
+    final data = response.data as List;
+
+    // print(data);
+
+    // Map<String, dynamic> userMap = data;
+
+    // print(userMap);
+
+    // List responseJson = json.decode(data);
 
     // print(responseJson.map((e) => print(User.fromJson(e))));
 
-    _users = responseJson.map((e) => User.fromJson(e)).toList();
+    _users = data.map((e) => User.fromJson(e)).toList();
 
     return _users;
   }
