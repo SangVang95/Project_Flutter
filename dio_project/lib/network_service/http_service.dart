@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-import 'api_reponse.dart';
-
 class HttpService {
   Dio _dio;
 
@@ -32,19 +30,34 @@ class HttpService {
     }));
   }
 
-  Future<ApiResponse> getRequest(String endpoint) async {
-    ApiResponse _response = ApiResponse.loading("loading");
+  Future<dynamic> getRequest(String endpoint) async {
+    dynamic data;
     try {
-      final response = await _dio.get(endpoint);
-      if (response.statusCode == 200) {
-        _response = ApiResponse.completed(response.data);
+      final _response = await _dio.get(endpoint);
+      if (_response.statusCode == 200 || _response.data == 201) {
+        data = _response.data;
       } else {
-        _response = ApiResponse.error("message");
+        print(_response.statusMessage);
       }
     } catch (error) {
       print(error.message);
-      _response = ApiResponse.error(error.message);
     }
-    return _response;
+    return data;
+  }
+
+  Future<dynamic> postRequest(
+      String endpoint, Map<String, dynamic> params) async {
+    dynamic data;
+    try {
+      final _response = await _dio.post(endpoint, data: params);
+      if (_response.statusCode == 200 || _response.statusCode == 201) {
+        data = _response.data;
+      } else {
+        data = _response.statusMessage;
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    return data;
   }
 }

@@ -1,9 +1,10 @@
-import 'package:dio_project/model/user.dart';
+import 'package:dio_project/bloc/user_bloc.dart';
+import 'package:dio_project/bloc/user_event.dart';
+import 'package:dio_project/bloc/user_state.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../network_service/user_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -11,22 +12,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  List<User> _users = [];
-  UserRepository _repository;
-
-  Future getUser() async {
-    final users = await _repository.getUsers();
-    setState(() {
-      _users = users;
-    });
-  }
-
-  @override
-  void initState() {
-    _repository = UserRepository();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     print("Rebuild");
@@ -34,13 +19,40 @@ class _UserScreenState extends State<UserScreen> {
       appBar: AppBar(
         title: Text('User'),
         actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: () => getUser())
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => context.read<UserBloc>().add(GetUser())),
+          IconButton(
+              icon: Icon(Icons.open_in_browser),
+              onPressed: () => context
+                  .read<UserBloc>()
+                  .add(CreatePost(post: {'title': 'Rio', 'body': 'Van'})))
         ],
       ),
-      body: Center(
-        child: _users.isEmpty
-            ? CircularProgressIndicator()
-            : Text(_users[0].phone),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (BuildContext context, state) {
+          if (state is UserLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is UserLoaded) {
+            return Container(
+              child: ListView.builder(
+                  itemCount: state.users.length,
+                  itemBuilder: (context, i) => Text(state.users[i].name)),
+            );
+          } else if (state is UserError) {
+            return Center(
+              child: Text(state.message),
+            );
+          } else if (state is PostLoaded) {
+            return Center(child: Text(state.post.title));
+          } else {
+            return Center(
+              child: Text('Another state'),
+            );
+          }
+        },
       ),
     );
   }

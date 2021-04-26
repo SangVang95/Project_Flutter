@@ -1,5 +1,7 @@
+import 'package:dio_project/bloc/user_bloc.dart';
 import 'package:dio_project/screen/user_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +25,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: UserScreen(),
+      home: BlocProvider(
+        create: (context) => UserBloc(),
+        child: UserScreen(),
+      ),
     );
   }
 }
