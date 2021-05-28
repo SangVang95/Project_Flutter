@@ -18,12 +18,33 @@ class PostPage extends StatelessWidget {
               isLoading: controller.isLoading,
               child: ListView.builder(
                   itemCount: controller.posts.length,
-                  itemBuilder: (context, index) =>
-                      Text(controller.posts[index].title)),
+                  itemBuilder: (context, index) => postCard(
+                      controller.posts[index].title,
+                      controller.posts[index].body)),
             );
           },
         ),
       ),
     );
   }
+}
+
+Widget postCard(String title, String content) {
+  return Card(
+    child: Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('title: $title'),
+          // SizedBox(
+          //   height: 20,
+          // ),
+          Text(
+            'content: $content',
+            textAlign: TextAlign.start,
+          )
+        ],
+      ),
+    ),
+  );
 }
