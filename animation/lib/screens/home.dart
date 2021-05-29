@@ -14,6 +14,8 @@ class _HomePageState extends State<HomePage> {
 
   Tween<Offset> _offSet = Tween(begin: Offset(1, 0), end: Offset(0, 0));
 
+  List<Trip> _trips = [];
+
   @override
   void initState() {
     super.initState();
@@ -30,10 +32,29 @@ class _HomePageState extends State<HomePage> {
       Trip(3, "Mavai", "123123", "2.9", "3.jpg"),
     ];
 
+    // old part 1
+    // dummyData.forEach((element) {
+    //   // _buildTrip.add(_item(element, context));
+    //   _trips.add(element);
+    //   _listKey.currentState!.insertItem(_trips.length - 1);
+    // });
+
+    //new part 2
+
+    Future ft = Future(() {});
     dummyData.forEach((element) {
-      // _buildTrip.add(_item(element, context));
-      _listKey.currentState!.insertItem(_buildTrip.length - 1);
+      ft = ft.then((_) {
+        return Future.delayed(Duration(milliseconds: 100), () {
+          _trips.add(element);
+          _listKey.currentState!.insertItem(_trips.length - 1);
+        });
+      });
     });
+
+    // dummyData.forEach((element) {
+    //   _trips.add(element);
+    //   _listKey.currentState!.insertItem(_trips.length - 1);
+    // });
   }
 
   @override
@@ -46,11 +67,11 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.all(30),
         child: AnimatedList(
             key: _listKey,
-            initialItemCount: _buildTrip.length,
+            initialItemCount: _trips.length,
             itemBuilder: (BuildContext context, index, animation) =>
                 SlideTransition(
                   position: animation.drive(_offSet),
-                  child: _buildTrip[index],
+                  child: _item(_trips[index], context),
                 )),
       ),
     );
