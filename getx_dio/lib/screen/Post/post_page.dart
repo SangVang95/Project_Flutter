@@ -19,8 +19,9 @@ class PostPage extends StatelessWidget {
               child: ListView.builder(
                   itemCount: controller.posts.length,
                   itemBuilder: (context, index) => postCard(
-                      controller.posts[index].title,
-                      controller.posts[index].body)),
+                        controller.posts[index].title,
+                        controller.posts[index].body,
+                      )),
             );
           },
         ),
@@ -42,7 +43,18 @@ Widget postCard(String title, String content) {
           Text(
             'content: $content',
             textAlign: TextAlign.start,
-          )
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Builder(
+              builder: (BuildContext context) => IconButton(
+                    onPressed: () {
+                      final snackBar = SnackBar(content: Text('show'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    icon: Icon(Icons.show_chart),
+                  ))
         ],
       ),
     ),
