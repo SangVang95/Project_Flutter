@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:getx_dio/component/bindings.dart';
+import 'package:getx_dio/screen/Detail/detail_page.dart';
 import 'package:getx_dio/screen/Post/post_page.dart';
+import 'package:getx_dio/screen/couter/couter.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,8 +19,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: GetMaterialApp(
-        home: PostPage(),
-        initialBinding: AppBinding(),
+        home: CounterPage(),
+        // initialBinding: AppBinding(),
+        // initialRoute: "\1",
+        // getPages: [
+        //   GetPage(name: '\1', page: () => PostPage()),
+        //   GetPage(name: '\2', page: () => DetailPage())
+        // ],
       ),
     );
   }

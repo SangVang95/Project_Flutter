@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_dio/component/loading.dart';
+import 'package:getx_dio/screen/Detail/detail_page.dart';
 import 'package:getx_dio/screen/Post/post_controller.dart';
 
-class PostPage extends StatelessWidget {
+class PostPage extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Posts'),
+        title: Text('Post'),
       ),
       body: Container(
         child: GetBuilder<PostControler>(
           builder: (controller) {
-            print("rebuild");
+            print("rebuild Post controller");
             return Loading(
               isLoading: controller.isLoading,
               child: ListView.builder(
@@ -47,14 +49,18 @@ Widget postCard(String title, String content) {
           SizedBox(
             height: 10,
           ),
-          Builder(
-              builder: (BuildContext context) => IconButton(
-                    onPressed: () {
-                      final snackBar = SnackBar(content: Text('show'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                    icon: Icon(Icons.show_chart),
-                  ))
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.show_chart),
+          )
+          // Builder(
+          //     builder: (BuildContext context) => IconButton(
+          //           onPressed: () {
+          //             final snackBar = SnackBar(content: Text('show'));
+          //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          //           },
+          //           icon: Icon(Icons.show_chart),
+          //         ))
         ],
       ),
     ),
