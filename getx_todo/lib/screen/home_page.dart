@@ -4,15 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_todo/controller/toto_controller.dart';
+import 'package:getx_todo/get_view/counter_controller.dart';
 import 'package:getx_todo/screen/todo_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TodoController _controller = Get.put(TodoController());
+    final CounterController counterController = Get.find<CounterController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Collection todo'),
+        title: Text('${counterController.value}'),
       ),
       body: Container(
         child: Obx(() => ListView.separated(
