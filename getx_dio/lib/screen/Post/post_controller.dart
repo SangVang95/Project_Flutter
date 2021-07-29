@@ -2,7 +2,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_dio/model/post.dart';
 import 'package:getx_dio/screen/Post/post_provider.dart';
 
-class PostControler extends GetxController {
+class PostControler extends GetxController with StateMixin<List<Post>> {
   var isLoading = true;
   List<Post> posts = [];
   @override
@@ -10,14 +10,24 @@ class PostControler extends GetxController {
     PostProvider().getPosts(() {
       print("Sending");
     }, (posts) {
-      this.posts = posts;
-      isLoading = false;
+      change(posts, status: RxStatus.success());
       print(posts);
       update();
     }, (error) {
       print(error);
-      isLoading = false;
+      change(null, status: RxStatus.error(error.toString()));
     });
     super.onInit();
+  }
+
+  void createPost() {
+    PostProvider().createPost(() {
+      print("Before dens");
+    }, (post) {
+      print(post.title);
+      print(post.body);
+    }, (error) {
+      print(error.toString());
+    });
   }
 }

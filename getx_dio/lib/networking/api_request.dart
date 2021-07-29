@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:getx_dio/networking/api_error.dart';
@@ -20,6 +22,15 @@ class ApiRequest {
       // if (onError != null) onError(error);
 
       ApiError.showDialog(error);
+    });
+  }
+
+  void post(Function beforeSend, Function(dynamic data) onSuccess,
+      Function(dynamic error) onError) async {
+    await _dio().post(this.url, data: jsonEncode(params)).then((value) {
+      if (onSuccess != null) onSuccess(value.data);
+    }).catchError((err) {
+      if (onError != null) onError(err);
     });
   }
 }

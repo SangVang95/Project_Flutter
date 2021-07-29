@@ -3,7 +3,6 @@ import 'package:get/route_manager.dart';
 import 'package:getx_dio/component/bindings.dart';
 import 'package:getx_dio/screen/Detail/detail_page.dart';
 import 'package:getx_dio/screen/Post/post_page.dart';
-import 'package:getx_dio/screen/couter/couter.dart';
 
 void main() {
   runApp(MyApp());

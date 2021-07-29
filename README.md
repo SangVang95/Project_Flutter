@@ -8,6 +8,6 @@
 - shop_app: gridview, provider, nested model with provider (hanlde isFavorite), multiprovider, handle add item to cart, popup, draw badg
 - chat_app: firebase_auth, clcoud_firestore, firebase_storage (upload image), image picker, module(map), provider, sqlite
 _dio_project: use dio package, parse json, get, post, bloc, add parse json dynamic with compute
-- getx_dio: getx dio simple
+- getx_dio: getx dio simple, state mixin (loading)
 - getx_todo: obs, get storage, getview, onboarding (pageview)
 - animation: tween color, tween opacity, hero, tween sequence (size), animted list (tween offset)
