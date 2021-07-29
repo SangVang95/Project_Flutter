@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:getx_dio/networking/api_error.dart';
 
 class ApiRequest {
   final String url;
@@ -16,7 +17,9 @@ class ApiRequest {
     await _dio().get(this.url, queryParameters: this.params).then((result) {
       if (onSuccess != null) onSuccess(result.data);
     }).catchError((error) {
-      if (onError != null) onError(error);
+      // if (onError != null) onError(error);
+
+      ApiError.showDialog(error);
     });
   }
 }

@@ -19,13 +19,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: GetMaterialApp(
-        home: CounterPage(),
-        // initialBinding: AppBinding(),
-        // initialRoute: "\1",
-        // getPages: [
-        //   GetPage(name: '\1', page: () => PostPage()),
-        //   GetPage(name: '\2', page: () => DetailPage())
-        // ],
+        // home: CounterPage(),
+        initialBinding: AppBinding(),
+        initialRoute: "\1",
+        getPages: [
+          GetPage(name: '\1', page: () => PostPage()),
+          GetPage(name: '\2', page: () => DetailPage())
+        ],
       ),
     );
   }
