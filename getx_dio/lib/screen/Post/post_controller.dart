@@ -1,6 +1,6 @@
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:getx_dio/model/post.dart';
-import 'package:getx_dio/screen/Post/post_provider.dart';
+import 'package:getx_dio/screen/post/post_provider.dart';
 
 class PostControler extends GetxController with StateMixin<List<Post>> {
   var isLoading = true;

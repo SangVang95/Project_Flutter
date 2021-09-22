@@ -9,5 +9,5 @@
 - chat_app: firebase_auth, clcoud_firestore, firebase_storage (upload image), image picker, module(map), provider, sqlite
 _dio_project: use dio package, parse json, get, post, bloc, add parse json dynamic with compute
 - getx_dio: getx dio simple, state mixin (loading)
-- getx_todo: obs, get storage, getview, onboarding (pageview)
+- getx_todo: obs, get storage, getview, onboarding (pageview), multitarget
 - animation: tween color, tween opacity, hero, tween sequence (size), animted list (tween offset)

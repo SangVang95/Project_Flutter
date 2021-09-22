@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:get/route_manager.dart';
 import 'package:getx_dio/component/bindings.dart';
 import 'package:getx_dio/screen/Detail/detail_page.dart';
-import 'package:getx_dio/screen/Post/post_page.dart';
+import 'package:getx_dio/screen/post/post_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
+
   runApp(MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

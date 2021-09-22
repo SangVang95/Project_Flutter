@@ -25,6 +25,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+// Config
+
+project.ext.envConfigFiles = [
+    dev: ".env.dev",
+    prod: ".env.prod",
+]
+apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+
 android {
     compileSdkVersion 30
 
@@ -34,11 +42,23 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.getx_todo"
+        applicationId project.env.get("APP_ID")
         minSdkVersion 16
         targetSdkVersion 30
+        // project.env.get("VERSION_CODE").toInteger()
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "build_config_package", "com.example.getx_todo"
+    }
+
+    flavorDimensions "environment"
+    productFlavors {
+        dev {
+            dimension "environment"
+        }
+        prod {
+            dimension "environment"
+        }
     }
 
     buildTypes {

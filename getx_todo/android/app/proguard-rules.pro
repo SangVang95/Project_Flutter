@@ -1,0 +1,1 @@
+-keep class com.example.getx_todo.BuildConfig { *; }

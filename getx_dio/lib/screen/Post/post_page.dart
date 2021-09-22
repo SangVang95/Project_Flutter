@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
+import 'package:getx_dio/screen/Detail/detail_page.dart';
 import 'package:getx_dio/screen/Post/post_controller.dart';
 
 class PostPage extends GetWidget<PostControler> {
@@ -59,7 +61,9 @@ Widget postCard(String title, String content, PostControler controller) {
           ),
           IconButton(
             onPressed: () {
-              controller.createPost();
+              // controller.createPost();
+              print(" 1111123123123123123123123123");
+              Get.to(DetailPage());
             },
             icon: Icon(Icons.show_chart),
           )
