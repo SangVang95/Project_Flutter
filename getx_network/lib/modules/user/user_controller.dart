@@ -11,8 +11,8 @@ class UserController extends GetxController {
 
   final users = RxList<User>([]);
   final errMessage = Rx<String?>(null);
-  final isLoading = Rx<bool>(true);
   final user = Rx<User?>(null);
+  final isLoading = Rx<bool>(true);
 
   @override
   void onInit() {
@@ -30,7 +30,6 @@ class UserController extends GetxController {
   }
 
   void createUser() {
-    isLoading.value = true;
     _repository
         .createUser(UserParams.createUser(id: 101, name: 'Danasa'))
         .then((value) => user.value = value)
