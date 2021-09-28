@@ -5,4 +5,5 @@ class AppRoutes {
   AppRoutes._();
   static const user_page = '/user_page';
   static const post_page = '/post_page';
+  static const detail_page = '/detail_page';
 }
