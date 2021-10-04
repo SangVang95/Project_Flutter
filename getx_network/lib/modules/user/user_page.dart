@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:getx_network/modules/user/user_controller.dart';
@@ -14,7 +15,7 @@ class UserPage extends GetView<UserController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TEST NETWORK'),
+        title: Text(FlutterConfig.get('APP_NAME')),
         actions: [
           IconButton(
               onPressed: () {
