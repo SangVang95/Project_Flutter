@@ -10,6 +10,7 @@ class CounterHome extends StatefulWidget {
 class _HomeState extends State<CounterHome> {
   @override
   Widget build(BuildContext context) {
+    final state = context.watch<CounterBloc>();
     final counterBloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
