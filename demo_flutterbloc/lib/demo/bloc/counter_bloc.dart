@@ -26,18 +26,6 @@ class CounterBloc extends Bloc<CounterEvent, CounterSate> {
   void onEvent(CounterEvent event) {
     super.onEvent(event);
     print(event);
-
-    // if (event is CounterIncrement) {
-    //   emit(CounterCompleted(state.count + 1));
-    // } else {
-    //   if (state.count != 0) emit(CounterCompleted(state.count - 1));
-    // }
-
-    // if (event is CounterIncrement) {
-    //   emit(CounterSate.completed(state.count + 1));
-    // } else {
-    //   if (state.count != 0) emit(CounterSate.completed(state.count - 1));
-    // }
   }
 
   @override
@@ -49,7 +37,6 @@ class CounterBloc extends Bloc<CounterEvent, CounterSate> {
   @override
   void onTransition(Transition<CounterEvent, CounterSate> transition) {
     super.onTransition(transition);
-    print(1);
     print(transition);
   }
 }
