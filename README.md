@@ -13,4 +13,4 @@ _dio_project: use dio package, parse json, get, post, bloc, add parse json dynam
 - animation: tween color, tween opacity, hero, tween sequence (size), animted list (tween offset)
 - getx_network: module network, multitarget (debug)
 - demo_flutterbloc: cubit, flutter bloc counter
-- method_channel: use native code (battery)
+- drag_scale_rote_widget: matrix package (run nosound safety)
