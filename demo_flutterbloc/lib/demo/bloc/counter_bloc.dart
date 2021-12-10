@@ -1,39 +1,55 @@
-import 'dart:async';
+import 'package:demo_flutterbloc/demo/bloc/counter_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'counter_event.dart';
 
-part 'counter_event.dart';
-part 'counter_state.dart';
-
-class CounterBloc extends Bloc<CounterEvent, CounterState> {
-  CounterBloc() : super(CounterInitial());
+class CounterBloc extends Bloc<CounterEvent, CounterSate> {
+  CounterBloc() : super(CounterSate.initial()) {
+    on(
+      (event, emit) => {
+        if (event is CounterIncrement)
+          {
+            emit(CounterSate.completed(state.count + 1)),
+          }
+        else
+          {
+            if (state.count != 0)
+              emit(
+                CounterSate.completed(state.count - 1),
+              )
+          }
+      },
+    );
+  }
 
   @override
-  Stream<CounterState> mapEventToState(
-    CounterEvent event,
-  ) async* {
-    // TODO: implement mapEventToState
-    final currentState = state;
-    if (event is Increase) {
-      if (currentState is CounterCompleted) {
-        var count = currentState.count;
-        count++;
-        yield CounterCompleted(count);
-      } else {
-        yield CounterCompleted(1);
-      }
-    } else {
-      if (currentState is CounterCompleted) {
-        var count = currentState.count;
-        if (count == 0) {
-          yield CounterCompleted(count);
-        } else {
-          count--;
-          yield CounterCompleted(count);
-        }
-      }
-    }
+  void onEvent(CounterEvent event) {
+    super.onEvent(event);
+    print(event);
+
+    // if (event is CounterIncrement) {
+    //   emit(CounterCompleted(state.count + 1));
+    // } else {
+    //   if (state.count != 0) emit(CounterCompleted(state.count - 1));
+    // }
+
+    // if (event is CounterIncrement) {
+    //   emit(CounterSate.completed(state.count + 1));
+    // } else {
+    //   if (state.count != 0) emit(CounterSate.completed(state.count - 1));
+    // }
+  }
+
+  @override
+  void onChange(Change<CounterSate> change) {
+    super.onChange(change);
+    print(change);
+  }
+
+  @override
+  void onTransition(Transition<CounterEvent, CounterSate> transition) {
+    super.onTransition(transition);
+    print(1);
+    print(transition);
   }
 }

@@ -1,19 +1,34 @@
-part of 'counter_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-abstract class CounterState extends Equatable {}
+enum CounterStatus { initial, complete }
 
-class CounterInitial extends CounterState {
-  @override
-  // TODO: implement props
-  List<Object?> get props => [];
-}
-
-class CounterCompleted extends CounterState {
+class CounterSate {
   final int count;
-  CounterCompleted(this.count);
+  final CounterStatus status;
 
-  @override
-  // TODO: implement props
-  List<Object?> get props => [count];
+  CounterSate._(this.count, this.status);
+
+  CounterSate.initial() : this._(0, CounterStatus.initial);
+
+  CounterSate.completed(int newCount)
+      : this._(newCount, CounterStatus.complete);
 }
+
+// abstract class CounterState extends Equatable {
+//   final int count;
+
+//   const CounterState(this.count);
+// }
+
+// class CounterInitial extends CounterState {
+//   const CounterInitial(int count) : super(0);
+
+//   @override
+//   List<Object?> get props => [];
+// }
+
+// class CounterCompleted extends CounterState {
+//   const CounterCompleted(int count) : super(count);
+//   @override
+//   List<Object?> get props => [count];
+// }
