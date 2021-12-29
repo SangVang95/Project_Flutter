@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:navigator20/routes/router.gr.dart';
+import 'package:navigator20/screens/dashboard_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,19 +41,29 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             TextButton(
                 onPressed: () {
-                  print('1');
                   // AutoRouter.of(context).pushNamed('/second-page');
                   context.router.push(SecondRoute(name: 'Dev'));
                 },
                 child: const Text('Second page')),
             TextButton(
                 onPressed: () {
-                  context.router.pushNamed('/third-page');
+                  // context.router.pushNamed('/third-page');
+                  gotoThirdPage(context);
                 },
-                child: const Text('Thrid page'))
+                child: const Text('Thrid page')),
+            TextButton(
+                onPressed: () {
+                  context.router.push(DashboardRoute());
+                },
+                child: const Text('Dashboard page'))
           ],
         ),
       ),
     );
+  }
+
+  void gotoThirdPage(BuildContext context) async {
+    var result = await context.router.push(ThirdRoute());
+    print(result);
   }
 }
