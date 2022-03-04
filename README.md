@@ -14,5 +14,5 @@ _dio_project: use dio package, parse json, get, post, bloc, add parse json dynam
 - getx_network: module network, multitarget (debug)
 - demo_flutterbloc: cubit, flutter bloc counter
 - drag_scale_rote_widget: matrix package (run nosound safety)
-- navigator20: auto_route
+- navigator20: auto_route, pathParam,...
 - generate_package: use dependacy paackage

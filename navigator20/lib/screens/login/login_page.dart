@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:navigator20/routes/route.gr.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            context.pushRoute(const HomeRoute());
+            context.pushRoute(const HomeRouter());
           },
           child: const Text('Go to app'),
         ),
